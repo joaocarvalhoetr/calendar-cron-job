@@ -118,12 +118,18 @@ function generateICS(events: CalendarEvent[]): string {
     ics += 'METHOD:PUBLISH\r\n';
     
     events.forEach((event, index) => {
+        const timestamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
         ics += 'BEGIN:VEVENT\r\n';
         ics += `UID:${Date.now()}-${index}@calendar-cron-job\r\n`;
         ics += `DTSTART:${event.start}\r\n`;
         ics += `DTEND:${event.end}\r\n`;
+        ics += `DTSTAMP:${timestamp}\r\n`;
         ics += `SUMMARY:${event.title}\r\n`;
-        ics += `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z\r\n`;
+        ics += 'STATUS:CONFIRMED\r\n';
+        ics += 'TRANSP:OPAQUE\r\n';
+        ics += 'X-MICROSOFT-CDO-BUSYSTATUS:OOF\r\n';
+        ics += 'X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY\r\n';
+        ics += `DESCRIPTION:${event.title}\r\n`;
         ics += 'END:VEVENT\r\n';
     });
     
