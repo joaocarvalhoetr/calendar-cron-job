@@ -5,9 +5,15 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/calendar.ics',
-        destination: '/calendar/ics',
+        destination: '/api/calendar/ics',
       },
     ];
+  },
+  // Garantir que as rotas API são servidas corretamente
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
   },
 };
 

@@ -3,7 +3,7 @@ import { loadEnvConfig } from "@next/env";
 import stream from "stream";
 import { promisify } from "util";
 import fetch  from "node-fetch";
-import { getICSCache, getLastUpdate } from "../../api/calendar/cache";
+import { getICSCache, getLastUpdate } from "../cache";
 
 loadEnvConfig(process.cwd());
 
@@ -151,6 +151,7 @@ export async function GET(request: NextRequest) {
             return new Response(cachedICS, {
                 headers: {
                     'Content-Type': 'text/calendar; charset=utf-8',
+                    'Content-Disposition': 'attachment; filename="calendar.ics"',
                     'Cache-Control': 'public, max-age=3600',
                 }
             });
@@ -165,6 +166,7 @@ export async function GET(request: NextRequest) {
         return new Response(icsContent, {
             headers: {
                 'Content-Type': 'text/calendar; charset=utf-8',
+                'Content-Disposition': 'attachment; filename="calendar.ics"',
                 'Cache-Control': 'public, max-age=3600',
             }
         });
