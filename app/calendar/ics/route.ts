@@ -3,7 +3,7 @@ import { loadEnvConfig } from "@next/env";
 import stream from "stream";
 import { promisify } from "util";
 import fetch  from "node-fetch";
-import { getICSCache, getLastUpdate } from "../api/calendar/cache";
+import { getICSCache, getLastUpdate } from "../../api/calendar/cache";
 
 loadEnvConfig(process.cwd());
 
